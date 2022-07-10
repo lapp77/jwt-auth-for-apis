@@ -1,0 +1,242 @@
+{
+	"info": {
+		"_postman_id": "b9901d3f-e63c-42a0-9eae-c34f4ea985a1",
+		"name": "User Signup",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7173585"
+	},
+	"item": [
+		{
+			"name": "Username is not a valid email",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"John\",\r\n    \"lastName\": \"Doe\",\r\n    \"emailId\": \"jdoe\",\r\n    \"age\": 32,\r\n    \"phone\": \"202-555-1234\",\r\n    \"role\": \"REPORTEE\",\r\n    \"password\": \"foobar\",\r\n    \"address\": \"123 Main St\",\r\n    \"tag\": \"user\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Password < 8 characters",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"John\",\r\n    \"lastName\": \"Doe\",\r\n    \"emailId\": \"jdoe@email.com\",\r\n    \"age\": 32,\r\n    \"phone\": \"202-555-1234\",\r\n    \"role\": \"REPORTEE\",\r\n    \"password\": \"foobar\",\r\n    \"address\": \"123 Main St\",\r\n    \"tag\": \"user\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Password > 16 characters",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"John\",\r\n    \"lastName\": \"Doe\",\r\n    \"emailId\": \"jdoe@email.com\",\r\n    \"age\": 32,\r\n    \"phone\": \"202-555-1234\",\r\n    \"role\": \"REPORTEE\",\r\n    \"password\": \"foobar_foobar_foobar\",\r\n    \"address\": \"123 Main St\",\r\n    \"tag\": \"user\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Password must contain 1 uppercase character",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"John\",\r\n    \"lastName\": \"Doe\",\r\n    \"emailId\": \"jdoe@email.com\",\r\n    \"age\": 32,\r\n    \"phone\": \"202-555-1234\",\r\n    \"role\": \"REPORTEE\",\r\n    \"password\": \"foobarbaz\",\r\n    \"address\": \"123 Main St\",\r\n    \"tag\": \"user\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Password must contain 1 digit character",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"John\",\r\n    \"lastName\": \"Doe\",\r\n    \"emailId\": \"jdoe@email.com\",\r\n    \"age\": 32,\r\n    \"phone\": \"202-555-1234\",\r\n    \"role\": \"REPORTEE\",\r\n    \"password\": \"fooBarbaz\",\r\n    \"address\": \"123 Main St\",\r\n    \"tag\": \"user\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Password must contain 1 special character",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"John\",\r\n    \"lastName\": \"Doe\",\r\n    \"emailId\": \"jdoe@email.com\",\r\n    \"age\": 32,\r\n    \"phone\": \"202-555-1234\",\r\n    \"role\": \"REPORTEE\",\r\n    \"password\": \"fooBarbaz8\",\r\n    \"address\": \"123 Main St\",\r\n    \"tag\": \"user\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User already registered",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"John\",\r\n    \"lastName\": \"Doe\",\r\n    \"emailId\": \"john@email.com\",\r\n    \"age\": 32,\r\n    \"phone\": \"202-555-1234\",\r\n    \"role\": \"REPORTEE\",\r\n    \"password\": \"fooBarb@z8\",\r\n    \"address\": \"123 Main St\",\r\n    \"tag\": \"user\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Valid user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"John\",\r\n    \"lastName\": \"Doe\",\r\n    \"emailId\": \"john@email.com\",\r\n    \"age\": 32,\r\n    \"phone\": \"202-555-1234\",\r\n    \"role\": \"REPORTEE\",\r\n    \"password\": \"fooBarb@z8\",\r\n    \"address\": \"123 Main St\",\r\n    \"tag\": \"user\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

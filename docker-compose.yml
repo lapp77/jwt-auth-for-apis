@@ -1,0 +1,27 @@
+version: "3"
+services:
+  simplysenddb_1:
+    image: postgres:13.2-alpine
+    container_name: simplysenddb_1
+    ports:
+      - 5432:5432
+    restart: unless-stopped
+    volumes:
+      - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+  simplysend1:
+    image: manning_apisecurity_simplysend_1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: manning_apisecurity_simplysend_1
+    expose:
+      - 8080
+    ports:
+      - 8080:8080
+    restart: unless-stopped
+    environment:
+      - WAIT_HOSTS=simplysenddb_1:5432
