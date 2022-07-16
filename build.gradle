@@ -21,7 +21,7 @@ dependencies {
     implementation 'org.passay:passay:1.6.0'
 
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    compile 'com.auth0:java-jwt:3.4.0'
+    compile 'com.auth0:java-jwt:4.0.0'
     runtimeOnly 'org.postgresql:postgresql'
 }
 
