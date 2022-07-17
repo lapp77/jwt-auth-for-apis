@@ -1,0 +1,90 @@
+{
+	"info": {
+		"_postman_id": "ed51d341-f884-48f1-9f06-a326c76f612d",
+		"name": "Authenticated Items Retrieval",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7173585"
+	},
+	"item": [
+		{
+			"name": "Anonymous Access",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/items",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid JWT Token",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "foobar",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/items",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Valid JWT Token",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "foobar",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/items",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"items"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
