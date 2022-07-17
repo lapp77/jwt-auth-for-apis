@@ -20,24 +20,27 @@ public class JwtSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final JwtManager jwtManager;
 
     public JwtSecurityConfiguration(UserDetailsService userDetailsService, JwtManager jwtManager) {
+        super(true);
         this.userDetailsService = userDetailsService;
         this.jwtManager = jwtManager;
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER)
-                .and()
-                .userDetailsService(userDetailsService)
+        http.userDetailsService(userDetailsService)
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/v1/users").permitAll()
                 .antMatchers("/error").permitAll()
                 .anyRequest().authenticated()
                 .and()
+                .anonymous()
+                .and()
                 .addFilterBefore(new JwtAuthenticationFilter(authenticationManager(), jwtManager),
                         AnonymousAuthenticationFilter.class)
-                .exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
+                .exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
+                .and()
+                .requestCache().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     @Bean
