@@ -18,6 +18,8 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.lang.NonNull;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -56,11 +58,21 @@ public class UserServiceImpl implements UserService {
             throw new UserAlreadyRegisteredException();
         }
 
+        User manager = Optional.ofNullable(userDTO.getManagerID()).flatMap(id -> userRepository.findById(id))
+                .orElse(null);
+
+        user.setManager(manager);
         userRepository.save(user);
 
         credentials.setUsername(user.getEmail());
         credentials.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         credentials.setEnabled(true);
         credentialsRepository.save(credentials);
+    }
+
+    @Override
+    public Page<UserDTO> listUsers(Integer page, Integer limit) {
+        PageRequest pageRequest = PageRequest.of(page, limit);
+        return userRepository.findAll(pageRequest).map(UserMapper::toDTO);
     }
 }

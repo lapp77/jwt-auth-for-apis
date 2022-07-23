@@ -1,6 +1,8 @@
 package com.manning.simplysend.services.impl;
 
 import com.manning.simplysend.dto.ItemDTO;
+import com.manning.simplysend.entities.Item;
+import com.manning.simplysend.mappers.ItemMapper;
 import com.manning.simplysend.repositories.ItemsRepository;
 import com.manning.simplysend.services.ItemsService;
 import org.springframework.data.domain.Page;
@@ -19,14 +21,10 @@ public class ItemsServiceImpl implements ItemsService {
     @Override
     public Page<ItemDTO> listItems(String type, Integer page, Integer limit) {
         PageRequest pageRequest = PageRequest.of(page, limit);
-        if (type == null || type.isBlank()) {
-            return itemsRepository
-                    .findAll(pageRequest)
-                    .map(ItemDTO::toDTO);
 
-        }
-        return itemsRepository
-                .findAllByType(type, pageRequest)
-                .map(ItemDTO::toDTO);
+        Page<Item> items = (type == null || type.isBlank()) ? itemsRepository.findAll(pageRequest)
+                : itemsRepository.findAllByType(type, pageRequest);
+
+        return items.map(ItemMapper::toDTO);
     }
 }

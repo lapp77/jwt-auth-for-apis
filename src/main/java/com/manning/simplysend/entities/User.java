@@ -36,14 +36,11 @@ public class User implements Serializable {
     private RoleEnum role;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_manager",
-            joinColumns = {@JoinColumn(name = "manager_id")},
-            inverseJoinColumns = {@JoinColumn(name = "user_id")}
-    )
+    @JoinTable(name = "user_manager", joinColumns = { @JoinColumn(name = "manager_id") }, inverseJoinColumns = {
+            @JoinColumn(name = "user_id") })
     private User manager;
 
-    @OneToMany(fetch = FetchType.EAGER,
-            mappedBy = "manager")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "manager")
     private Set<User> managees;
 
     @Column(name = "address")
@@ -156,8 +153,10 @@ public class User implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof User))
+            return false;
         User user = (User) o;
         return Objects.equals(getId(), user.getId()) &&
                 Objects.equals(getFirstName(), user.getFirstName()) &&

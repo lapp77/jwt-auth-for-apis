@@ -12,11 +12,7 @@ public class UserCredentials {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "username",
-            referencedColumnName = "email",
-            insertable = false,
-            updatable = false
-    )
+    @JoinColumn(name = "username", referencedColumnName = "email", insertable = false, updatable = false)
     private User user;
 
     @Column(name = "password")

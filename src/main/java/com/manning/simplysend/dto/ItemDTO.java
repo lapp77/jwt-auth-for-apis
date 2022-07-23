@@ -19,15 +19,6 @@ public class ItemDTO {
     @JsonProperty("description")
     private String description;
 
-    public static ItemDTO toDTO(Item item) {
-        ItemDTO dto = new ItemDTO();
-        dto.setId(item.getId());
-        dto.setDescription(item.getDescription());
-        dto.setName(item.getName());
-        dto.setPrice(item.getPrice());
-        return dto;
-    }
-
     public Long getId() {
         return id;
     }

@@ -15,6 +15,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.RequestHeaderRequestMatcher;
@@ -27,6 +28,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     private static final String AUTH_HEADER_NAME = "Authorization";
     private static final String CLAIM_USERNAME = "username";
+    private static final String CLAIM_ROLE = "role";
 
     private final RequestMatcher authHeaderRequestMatcher = new RequestHeaderRequestMatcher(AUTH_HEADER_NAME);
     private final JwtManager jwtManager;
@@ -44,7 +46,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             SecurityContextHolder.getContext().setAuthentication(authResult);
             chain.doFilter(request, response);
         } else { // from login attempt
-            Map<String, Object> claims = Map.of(CLAIM_USERNAME, authResult.getName());
+            String username = authResult.getName();
+            String role = authResult.getAuthorities().stream().findFirst().map(authority -> authority.toString())
+                    .orElse("");
+            Map<String, Object> claims = Map.of(CLAIM_USERNAME, username, CLAIM_ROLE, role);
             response.setStatus(HttpServletResponse.SC_OK);
             response.setHeader(AUTH_HEADER_NAME, "Bearer " + jwtManager.create(claims));
         }
@@ -68,8 +73,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             String token = bearerToken.replaceAll("[Bb]earer\\s+", "");
             DecodedJWT decodedJWT = jwtManager.verify(token);
             String username = decodedJWT.getClaim(CLAIM_USERNAME).asString();
+            String role = decodedJWT.getClaim(CLAIM_ROLE).asString();
 
-            return new UsernamePasswordAuthenticationToken(username, null, List.of());
+            return new UsernamePasswordAuthenticationToken(username, null, List.of(new SimpleGrantedAuthority(role)));
         } catch (JWTVerificationException ex) {
             throw new BadCredentialsException(ex.getLocalizedMessage());
         }
@@ -79,5 +85,4 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected boolean requiresAuthentication(HttpServletRequest request, HttpServletResponse response) {
         return super.requiresAuthentication(request, response) || authHeaderRequestMatcher.matches(request);
     }
-
 }
