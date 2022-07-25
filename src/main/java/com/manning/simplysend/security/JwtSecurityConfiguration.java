@@ -26,8 +26,10 @@ public class JwtSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/v1/users").permitAll()
                 .antMatchers("/error").permitAll()
+                .antMatchers(HttpMethod.POST, "/v1/users").permitAll()
+                .antMatchers(HttpMethod.GET, "/v1/users").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/v1/users/*/revoke").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/v1/orders").hasRole("MGR")
                 .antMatchers(HttpMethod.POST, "/v1/orders/**/*").hasRole("MGR")
                 .anyRequest().authenticated()

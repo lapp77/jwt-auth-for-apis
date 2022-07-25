@@ -75,4 +75,19 @@ public class UserServiceImpl implements UserService {
         PageRequest pageRequest = PageRequest.of(page, limit);
         return userRepository.findAll(pageRequest).map(UserMapper::toDTO);
     }
+
+    @Override
+    public UserDTO userInfo(String emailId) {
+        return userRepository.findByEmail(emailId).map(UserMapper::toDTO).get();
+    }
+
+    @Override
+    public void revoke(Long id) {
+        userRepository.findById(id).ifPresent(user -> {
+            credentialsRepository.findByUser_Email(user.getEmail()).ifPresent(credentials -> {
+                credentials.setEnabled(false);
+                credentialsRepository.save(credentials);
+            });
+        });
+    }
 }

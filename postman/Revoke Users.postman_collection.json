@@ -1,0 +1,233 @@
+{
+	"info": {
+		"_postman_id": "bd8de127-e917-47bd-b097-cf4c2dc2ae87",
+		"name": "Revoke Users",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7173585"
+	},
+	"item": [
+		{
+			"name": "Admin user logs in",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "emailId",
+							"value": "alice@email.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "abcd1234#",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin lists users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9BRE1JTiIsImlzcyI6InNpbXBseXNlbmQiLCJ1c2VybmFtZSI6ImFsaWNlQGVtYWlsLmNvbSJ9._YPuelo2PV9TTudPIIMBTWgqxfzydkqx1nlilG12Z_I",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin revokes user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9BRE1JTiIsImlzcyI6InNpbXBseXNlbmQiLCJ1c2VybmFtZSI6ImFsaWNlQGVtYWlsLmNvbSJ9._YPuelo2PV9TTudPIIMBTWgqxfzydkqx1nlilG12Z_I",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/users/3/revoke",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"users",
+						"3",
+						"revoke"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Manager lists users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9NR1IiLCJpc3MiOiJzaW1wbHlzZW5kIiwidXNlcm5hbWUiOiJqb2huQGVtYWlsLmNvbSJ9.AQaC6hPVE57-OuCfR7OgP00-Qda5aU1ZPD9nhbE9THQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Manager retrieves his user info",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9NR1IiLCJpc3MiOiJzaW1wbHlzZW5kIiwidXNlcm5hbWUiOiJqb2huQGVtYWlsLmNvbSJ9.AQaC6hPVE57-OuCfR7OgP00-Qda5aU1ZPD9nhbE9THQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/users/me",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"users",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Manager revokes user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9NR1IiLCJpc3MiOiJzaW1wbHlzZW5kIiwidXNlcm5hbWUiOiJqb2huQGVtYWlsLmNvbSJ9.AQaC6hPVE57-OuCfR7OgP00-Qda5aU1ZPD9nhbE9THQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/users/3/revoke",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"users",
+						"3",
+						"revoke"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Revoked user logs in",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "emailId",
+							"value": "jdoe@email.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "fooBarb@z8",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

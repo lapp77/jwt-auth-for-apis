@@ -23,11 +23,14 @@ public class JpaUserDetailsService implements UserDetailsService {
         UserCredentials credentials = credentialsRepository.findByUser_Email(username)
                 .orElseThrow(() -> new UsernameNotFoundException(username));
 
+        if (!credentials.getEnabled()) {
+            throw new UsernameNotFoundException("User is not enabled");
+        }
+
         return User.builder()
                 .username(username)
                 .password(credentials.getPassword())
                 .roles(credentials.getUser().getRole().toString())
                 .build();
     }
-
 }
