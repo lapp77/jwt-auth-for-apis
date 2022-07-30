@@ -1,14 +1,14 @@
 package com.manning.simplysend.mappers;
 
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import com.manning.simplysend.dto.ItemDTO;
 import com.manning.simplysend.dto.OrderDTO;
 import com.manning.simplysend.entities.Item;
 import com.manning.simplysend.entities.Order;
 
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-public class OrderMapper {
+public class OrderMapper extends BaseMapper {
 
     public static Order fromDTO(OrderDTO orderDTO) {
         Order order = new Order();
@@ -24,8 +24,8 @@ public class OrderMapper {
     public static OrderDTO toDTO(Order order) {
         OrderDTO orderDTO = new OrderDTO();
         orderDTO.setId(order.getId());
-        orderDTO.setReason(order.getReason());
-        orderDTO.setComment(order.getComment());
+        orderDTO.setReason(htmlEscape(order.getReason()));
+        orderDTO.setComment(htmlEscape(order.getComment()));
         orderDTO.setStatus(order.getStatus());
 
         Stream<Item> items = order.getItems().stream();
