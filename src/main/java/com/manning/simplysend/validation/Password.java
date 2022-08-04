@@ -10,7 +10,7 @@ import javax.validation.Payload;
 
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = PassworRulesdValidator.class)
+@Constraint(validatedBy = PasswordRulesdValidator.class)
 public @interface Password {
     String message() default "Password do not adhere to the specified rule";
     Class<?>[] groups() default {};
